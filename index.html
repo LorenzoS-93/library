@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
+    <title>Accessible books</title>
+</head>
+<body>
+    <h1>Accessible books</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Pages</th>
+                <th>Read status</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+    <dialog>
+        <form action="">
+            <div class="form-row">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title">
+            </div>
+            <div class="form-row">
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="author">
+            </div>
+            <div class="form-row">
+                <label for="pages">Pages:</label>
+                <input type="number" id="pages" name="pages">
+            </div>
+            <div class="form-row">
+                <label class='checkbox-label' for='available'>
+                    <input type="checkbox" name="read-status" id="read" value="read">
+                    <span>Read</span>
+                </label>
+            </div>
+        </form>
+        <button onclick="addBookToLibrary()">ADD BOOK</button>
+    </dialog>
+    <button onclick="openAddModal()">NEW BOOK</button>
+      
+    
+</body>
+</html>
