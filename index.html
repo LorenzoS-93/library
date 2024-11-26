@@ -5,46 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="main.js" defer></script>
-    <title>Accessible books</title>
+    <title>My Library</title>
 </head>
 <body>
-    <h1>Accessible books</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Pages</th>
-                <th>Read status</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-        </tbody>
-    </table>
-    <dialog>
-        <form action="">
-            <div class="form-row">
-                <label for="title">Title:</label>
-                <input type="text" id="title" name="title">
+    <div class="container">
+        <header>
+            <h1>My Library</h1>
+        </header>
+        <main>
+            <div class="card" id="open-dialog">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <title>Add new book</title>
+                    <path d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 
+                            12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 
+                            12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
+                </svg>
             </div>
-            <div class="form-row">
-                <label for="author">Author:</label>
-                <input type="text" id="author" name="author">
-            </div>
-            <div class="form-row">
-                <label for="pages">Pages:</label>
-                <input type="number" id="pages" name="pages">
-            </div>
-            <div class="form-row">
-                <label class='checkbox-label' for='available'>
-                    <input type="checkbox" name="read-status" id="read" value="read">
-                    <span>Read</span>
-                </label>
-            </div>
-        </form>
-        <button onclick="addBookToLibrary()">ADD BOOK</button>
-    </dialog>
-    <button onclick="openAddModal()">NEW BOOK</button>
+            <dialog>
+                <button id="close-dialog">Cancel</button>
+                <button id="add-book">Add</button>
+            </dialog>
+        </main>
+    </div>
 </body>
 </html>
