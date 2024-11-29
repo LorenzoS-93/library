@@ -27,11 +27,24 @@ const closeDialog = () => {
 };
 
 const addCard = (e) => {
-    
     main.insertBefore(e, openDialogBtn);
 };
 
-const fillCard = (e) => {
+const addBookToLibrary = () => {
+    const titleInput = dialog.querySelector("#title");
+    const authorInput = dialog.querySelector("#author");
+    const pagesInput = dialog.querySelector("#pages");
+
+    const newBook = new Book(titleInput.value, authorInput.value, pagesInput.value, "read");
+    myLibrary.push(newBook);
+
+    titleInput.value="";
+    authorInput.value="";
+    pagesInput.value="";
+    return newBook;
+};
+
+const fillCard = (e, b) => {
     const bookCover = document.createElement("div");
     bookCover.setAttribute("class", "image-placeholder");
     const bookAttributes = document.createElement("div");
@@ -45,32 +58,25 @@ const fillCard = (e) => {
     const bookSummary = document.createElement("p");
     bookSummary.setAttribute("class", "summary");
 
-    const cover = "img";
-    const title = "title";
-    const author = "author";
-    const pages = "#pages";
-    const summary = "summary";
-
-    bookCover.textContent = cover;
+    bookCover.textContent = "img";
     e.appendChild(bookCover);
     e.appendChild(bookAttributes);
-    bookTitle.textContent = "Title: " + title;
+    bookTitle.textContent = "Title: " + b.title;
     bookAttributes.appendChild(bookTitle);
-    bookAuthor.textContent = "Author: " + title;
+    bookAuthor.textContent = "Author: " + b.author;
     bookAttributes.appendChild(bookAuthor);
-    bookPages.textContent = "Pages: " + title;
+    bookPages.textContent = "Pages: " + b.pages;
     bookAttributes.appendChild(bookPages);
-    bookSummary.textContent = "Summary: " + summary;
+    bookSummary.textContent = "Summary: ";
     e.appendChild(bookSummary);
-
 };
 
 const addBook = () => {
     const newCard = document.createElement("div");
     newCard.setAttribute("class", "card");
-
+    const newBook = addBookToLibrary();
     addCard(newCard);
-    fillCard(newCard);
+    fillCard(newCard, newBook);
     dialog.close();
 };
 
