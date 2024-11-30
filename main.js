@@ -11,10 +11,10 @@ const myLibrary = [];
 
 /* Initialize Book contructor */
 function Book(title, author, pages, read) {
-     this.title=title;
-     this.author=author;
-     this.pages=pages;
-     this.read=read;
+    this.title=title;
+    this.author=author;
+    this.pages=pages;
+    this.read=read;
 }
 
 const openDialog = () => {
@@ -22,7 +22,8 @@ const openDialog = () => {
     dialog.showModal();
 };
 
-const closeDialog = () => {
+const closeDialog = (event) => {
+    event.preventDefault();
     dialog.close();
 };
 
@@ -30,17 +31,10 @@ const addCard = (e) => {
     main.insertBefore(e, openDialogBtn);
 };
 
-const addBookToLibrary = () => {
-    const titleInput = dialog.querySelector("#title");
-    const authorInput = dialog.querySelector("#author");
-    const pagesInput = dialog.querySelector("#pages");
-
-    const newBook = new Book(titleInput.value, authorInput.value, pagesInput.value, "read");
+const addBookToLibrary = (title, author, pages) => {
+    const newBook = new Book(title, author, pages, "read");
     myLibrary.push(newBook);
 
-    titleInput.value="";
-    authorInput.value="";
-    pagesInput.value="";
     return newBook;
 };
 
@@ -71,12 +65,19 @@ const fillCard = (e, b) => {
     e.appendChild(bookSummary);
 };
 
-const addBook = () => {
+const addBook = (event) => {
+    event.preventDefault();
     const newCard = document.createElement("div");
     newCard.setAttribute("class", "card");
-    const newBook = addBookToLibrary();
+    const titleInput = dialog.querySelector("#title");
+    const authorInput = dialog.querySelector("#author");
+    const pagesInput = dialog.querySelector("#pages");
+    const newBook = addBookToLibrary(titleInput.value, authorInput.value, pagesInput.value);
     addCard(newCard);
     fillCard(newCard, newBook);
+    titleInput.value="";
+    authorInput.value="";
+    pagesInput.value="";
     dialog.close();
 };
 

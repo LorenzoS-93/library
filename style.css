@@ -64,3 +64,10 @@ main #open-dialog {
   width: 150px;
   height: 150px;
 }
+
+dialog {
+  padding: 24px;
+  border: none !important;
+  /* !important used here to override polyfill CSS, if loaded */
+  border-radius: 10px;
+}

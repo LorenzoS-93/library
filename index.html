@@ -13,15 +13,6 @@
             <h1>My Library</h1>
         </header>
         <main>
-            <div class="card">
-                <div class="image-placeholder">img</div>
-                <div class="attributes">
-                    <p class="title">Title: title</p>
-                    <p class="author">Author: autor</p>
-                    <p class="pages">Pages: #pages</p>
-                </div>
-                <p class="summary">Summary: summary</p>
-            </div>
             <div id="open-dialog">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <title>Add new book</title>
@@ -32,15 +23,23 @@
             </div>
             <dialog>
                 <form action="">
-                    <label for="title">Title:</label>
-                    <input type="text" id="title" name="title">
-                    <label for="author">Author:</label>
-                    <input type="text" id="author" name="author">
-                    <label for="pages">Pages:</label>
-                    <input type="number" id="pages" name="pages">
-                </form>
-                <button id="close-dialog">Cancel</button>
-                <button id="add-book">Add</button>
+                    <div class="form-row">
+                        <label for="title">Title:</label>
+                        <input type="text" id="title" name="title">
+                    </div>
+                    <div class="form-row">
+                        <label for="author">Author:</label>
+                        <input type="text" id="author" name="author">
+                    </div>
+                    <div class="form-row">
+                        <label for="pages">Pages:</label>
+                        <input type="number" id="pages" name="pages">
+                    </div>
+                    <div class="form-row">
+                        <button id="close-dialog">Cancel</button>
+                        <button id="add-book">Add</button>
+                    </div>
+                </form> 
             </dialog>
         </main>
     </div>
