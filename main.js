@@ -116,15 +116,26 @@ const addDltBtn = (e, b) => {
 
 function removeBook() {
     myLibrary.splice(this.getAttribute("id"), 1);
-    this.parentNode.remove();
+    this.parentNode.parentNode.remove();
 }
+
+const fillBtnRow = (e, b) => {
+    addReadBtn(e, b);
+    addDltBtn(e, b);
+}
+
+const addBtnRow = (e, b) => {
+    const btnRow = document.createElement("div");
+    btnRow.setAttribute("class", "btnRow");
+    fillBtnRow(btnRow, b);
+    e.appendChild(btnRow);
+};
 
 const fillCard = (e, b) => {
     addCover(e);
     addAttributes(e, b);
     addSummary(e, b);
-    addReadBtn(e, b);
-    addDltBtn(e, b);
+    addBtnRow(e, b);
 };
 
 const addCard = (b) => {
