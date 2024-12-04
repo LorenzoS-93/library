@@ -71,3 +71,11 @@ dialog {
   /* !important used here to override polyfill CSS, if loaded */
   border-radius: 10px;
 }
+
+.deleteBookBtn {
+  border: none;
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+  background-color: rgb(194, 190, 190);
+}

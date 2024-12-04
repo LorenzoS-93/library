@@ -1,13 +1,19 @@
 // /* main.js */
 
-const dialog = document.querySelector("dialog");
-const openDialogBtn = document.querySelector("#open-dialog");
-const closeDialogBtn = document.querySelector("#close-dialog");
-const addBookBtn = document.querySelector("#add-book");
 const main = document.querySelector("main");
-const titleInput = dialog.querySelector("#title");
-const authorInput = dialog.querySelector("#author");
-const pagesInput = dialog.querySelector("#pages");
+const openDialogBtn = main.querySelector("#open-dialog");
+const dialog = document.querySelector("dialog");
+const form = dialog.querySelector("form");
+const titleInput = form.querySelector("#title");
+const authorInput = form.querySelector("#author");
+const pagesInput = form.querySelector("#pages");
+const closeDialogBtn = form.querySelector("#close-dialog");
+const addBookBtn = form.querySelector("#add-book");
+
+const bin = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <title>delete</title>
+            <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+            </svg>`;
 
 /* Initialize  myLibrary array */
 const myLibrary = [];
@@ -21,15 +27,12 @@ function Book(title, author, pages, read) {
 }
 
 const openDialog = () => {
-    console.log("click");
+    form.reset();
     dialog.showModal();
 };
 
 const closeDialog = (event) => {
     event.preventDefault();
-    titleInput.value="";
-    authorInput.value="";
-    pagesInput.value="";
     dialog.close();
 };
 
@@ -104,10 +107,32 @@ const addSummary = (e, b) => {
     e.appendChild(bookSummary);
 }
 
+const addReadBtn = (e, b) => {
+    const readToggleBtn = document.createElement("button");
+    readToggleBtn.setAttribute("class", "readToggleBtn");
+    readToggleBtn.setAttribute("id", myLibrary.indexOf(b));
+    readToggleBtn.textContent = "READ";
+    e.appendChild(readToggleBtn);
+
+    return readToggleBtn;
+};
+
+function toggleReadStatus() {
+    console.log(myLibrary[this.getAttribute("id")]);
+    if(myLibrary[this.getAttribute("id")].read === "read") {
+        myLibrary[this.getAttribute("id")].read = "not read";
+    }
+    else {
+        myLibrary[this.getAttribute("id")].read = "read";
+    }
+    console.log(myLibrary[this.getAttribute("id")]);
+}
+
 const addDltBtn = (e, b) => {
     const deleteBookBtn = document.createElement("button");
+    deleteBookBtn.setAttribute("class", "deleteBookBtn");
     deleteBookBtn.setAttribute("id", myLibrary.indexOf(b));
-    deleteBookBtn.textContent = "delete";
+    deleteBookBtn.innerHTML = bin;
     e.appendChild(deleteBookBtn);
 
     return deleteBookBtn;
@@ -123,6 +148,8 @@ const fillCard = (e, b) => {
     const attributes = addAttributes(e);
     fillAttributes(attributes, b);
     addSummary(e, b);
+    const readToggleBtn = addReadBtn(e, b);
+    readToggleBtn.addEventListener("click", toggleReadStatus);
     const deleteBookBtn = addDltBtn(e, b);
     deleteBookBtn.addEventListener("click", removeBook);
 
@@ -134,10 +161,6 @@ const addBook = (event) => {
     const newBook = addBookToLibrary();
     const newCard = addCard();
     fillCard(newCard, newBook);
-    
-    titleInput.value="";
-    authorInput.value="";
-    pagesInput.value="";
     
     dialog.close();
 };
