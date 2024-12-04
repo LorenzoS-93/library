@@ -1,4 +1,4 @@
-// /* main.js */
+/* main.js */
 
 const main = document.querySelector("main");
 const openDialogBtn = main.querySelector("#open-dialog");
@@ -26,29 +26,9 @@ function Book(title, author, pages, read) {
     this.read=read;
 }
 
-const openDialog = () => {
-    form.reset();
-    dialog.showModal();
-};
-
-const closeDialog = (event) => {
-    event.preventDefault();
-    dialog.close();
-};
-
-const addCard = () => {
-    const newCard = document.createElement("div");
-    newCard.setAttribute("class", "card");
-    main.insertBefore(newCard, openDialogBtn);
-
-    return newCard;
-};
-
 const addBookToLibrary = () => {
     const newBook = new Book(titleInput.value, authorInput.value, pagesInput.value, "read");
     myLibrary.push(newBook);
-
-    return newBook;
 };
 
 const addCover = (e) => {
@@ -60,13 +40,11 @@ const addCover = (e) => {
     e.appendChild(bookCover);
 };
 
-const addAttributes = (e) => {
+const addAttributes = (e, b) => {
     const bookAttributes = document.createElement("div");
     bookAttributes.setAttribute("class", "attributes");
-    
+    fillAttributes(bookAttributes, b);
     e.appendChild(bookAttributes);
-
-    return bookAttributes;
 };
 
 const fillAttributes = (e, b) => {
@@ -112,9 +90,8 @@ const addReadBtn = (e, b) => {
     readToggleBtn.setAttribute("class", "readToggleBtn");
     readToggleBtn.setAttribute("id", myLibrary.indexOf(b));
     readToggleBtn.textContent = "READ";
+    readToggleBtn.addEventListener("click", toggleReadStatus);
     e.appendChild(readToggleBtn);
-
-    return readToggleBtn;
 };
 
 function toggleReadStatus() {
@@ -133,9 +110,8 @@ const addDltBtn = (e, b) => {
     deleteBookBtn.setAttribute("class", "deleteBookBtn");
     deleteBookBtn.setAttribute("id", myLibrary.indexOf(b));
     deleteBookBtn.innerHTML = bin;
+    deleteBookBtn.addEventListener("click", removeBook);
     e.appendChild(deleteBookBtn);
-
-    return deleteBookBtn;
 };
 
 function removeBook() {
@@ -145,22 +121,47 @@ function removeBook() {
 
 const fillCard = (e, b) => {
     addCover(e);
-    const attributes = addAttributes(e);
-    fillAttributes(attributes, b);
+    addAttributes(e, b);
     addSummary(e, b);
-    const readToggleBtn = addReadBtn(e, b);
-    readToggleBtn.addEventListener("click", toggleReadStatus);
-    const deleteBookBtn = addDltBtn(e, b);
-    deleteBookBtn.addEventListener("click", removeBook);
+    addReadBtn(e, b);
+    addDltBtn(e, b);
+};
 
+const addCard = (b) => {
+    const newCard = document.createElement("div");
+    newCard.setAttribute("class", "card");
+    fillCard(newCard, b);
+    main.insertBefore(newCard, openDialogBtn);
+};
+
+const showLibrary = () => {
+    for(const book of myLibrary) {
+        addCard(book);
+    }
+};
+
+const refreshLibrary = () => {
+    while (main.children.length > 1) {
+        main.removeChild(main.firstChild);
+    }
+};
+
+const openDialog = () => {
+    form.reset();
+    dialog.showModal();
+};
+
+const closeDialog = (event) => {
+    event.preventDefault();
+    dialog.close();
 };
 
 const addBook = (event) => {
     event.preventDefault();
     
-    const newBook = addBookToLibrary();
-    const newCard = addCard();
-    fillCard(newCard, newBook);
+    addBookToLibrary();
+    refreshLibrary();
+    showLibrary();
     
     dialog.close();
 };
