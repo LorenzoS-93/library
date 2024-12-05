@@ -23,14 +23,16 @@ const addBookToLibrary = () => {
     const pagesInput = document.querySelector("#pages");
     const summaryInput = document.querySelector("#summary")
     let read;
-    if(document.querySelector("#read").checked) {
-        read = "read";
+    if(titleInput.value !== "" && authorInput.value !== "" && pagesInput.value !== "") {
+        if(document.querySelector("#read").checked) {
+            read = "read";
+        }
+        else {
+            read = "not-read"
+        }
+        const newBook = new Book(titleInput.value, authorInput.value, pagesInput.value, summaryInput.value, read);
+        myLibrary.push(newBook);
     }
-    else {
-        read = "not-read"
-    }
-    const newBook = new Book(titleInput.value, authorInput.value, pagesInput.value, summaryInput.value, read);
-    myLibrary.push(newBook);
 };
 
 const addCover = (e) => {
