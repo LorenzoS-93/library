@@ -113,14 +113,12 @@ const addReadBtn = (e, b) => {
 };
 
 function toggleReadStatus() {
-    console.log(myLibrary[this.getAttribute("id")]);
     if(myLibrary[this.getAttribute("id")].read === "read") {
         myLibrary[this.getAttribute("id")].read = "not-read";
     }
     else {
         myLibrary[this.getAttribute("id")].read = "read";
     }
-    console.log(myLibrary[this.getAttribute("id")]);
     showLibrary();
 }
 
