@@ -1,33 +1,35 @@
 /* main.js */
 
-const main = document.querySelector("main");
-const openDialogBtn = main.querySelector("#open-dialog");
+const openDialogBtn = document.querySelector("#open-dialog");
 const dialog = document.querySelector("dialog");
-const form = dialog.querySelector("form");
-const titleInput = form.querySelector("#title");
-const authorInput = form.querySelector("#author");
-const pagesInput = form.querySelector("#pages");
-const closeDialogBtn = form.querySelector("#close-dialog");
-const addBookBtn = form.querySelector("#add-book");
-
-const bin = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <title>delete</title>
-            <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
-            </svg>`;
+const closeDialogBtn = document.querySelector("#close-dialog");
+const addBookBtn = document.querySelector("#add-book");
 
 /* Initialize  myLibrary array */
 const myLibrary = [];
 
 /* Initialize Book contructor */
-function Book(title, author, pages, read) {
+function Book(title, author, pages, summary, read) {
     this.title=title;
     this.author=author;
     this.pages=pages;
+    this.summary=summary;
     this.read=read;
 }
 
 const addBookToLibrary = () => {
-    const newBook = new Book(titleInput.value, authorInput.value, pagesInput.value, "read");
+    const titleInput = document.querySelector("#title");
+    const authorInput = document.querySelector("#author");
+    const pagesInput = document.querySelector("#pages");
+    const summaryInput = document.querySelector("#summary")
+    let read;
+    if(document.querySelector("#read").checked) {
+        read = "read";
+    }
+    else {
+        read = "not-read"
+    }
+    const newBook = new Book(titleInput.value, authorInput.value, pagesInput.value, summaryInput.value, read);
     myLibrary.push(newBook);
 };
 
@@ -57,7 +59,7 @@ const addTitle = (e, b) => {
     const bookTitle = document.createElement("p");
     bookTitle.setAttribute("class", "title");
 
-    bookTitle.textContent = "Title: " + b.title;
+    bookTitle.innerHTML = `<b>Title:</b> ${b.title}`;
     e.appendChild(bookTitle);
 };
 
@@ -65,7 +67,7 @@ const addAuthor = (e, b) => {
     const bookAuthor = document.createElement("p");
     bookAuthor.setAttribute("class", "author");
 
-    bookAuthor.textContent = "Author: " + b.author;
+    bookAuthor.innerHTML = `<b>Author:</b> ${b.author}`;
     e.appendChild(bookAuthor);
 };
 
@@ -73,7 +75,7 @@ const addPages = (e, b) => {
     const bookPages = document.createElement("p");
     bookPages.setAttribute("class", "pages");
 
-    bookPages.textContent = "Pages: " + b.pages;
+    bookPages.innerHTML = `<b>Pages:</b> ${b.pages}`;
     e.appendChild(bookPages);
 };
 
@@ -81,15 +83,29 @@ const addSummary = (e, b) => {
     const bookSummary = document.createElement("p");
     bookSummary.setAttribute("class", "summary");
 
-    bookSummary.textContent = "Summary: ";
+    bookSummary.innerHTML = `<b>Summary:</b> ${b.summary}`;
     e.appendChild(bookSummary);
-}
+};
 
 const addReadBtn = (e, b) => {
     const readToggleBtn = document.createElement("button");
     readToggleBtn.setAttribute("class", "readToggleBtn");
     readToggleBtn.setAttribute("id", myLibrary.indexOf(b));
-    readToggleBtn.textContent = "READ";
+    if(b.read !== "read") {
+        readToggleBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <title>book</title>
+                                    <path d="M18,22A2,2 0 0,0 20,20V4C20,2.89 19.1,2 18,2H12V9L9.5,7.5L7,9V2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18Z" />
+                                    </svg>`;
+    }
+    else {
+        readToggleBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <title>book-check</title>
+                                    <path d="M16.75 22.16L14 19.16L15.16 18L16.75 19.59L20.34 16L21.5 17.41L16.75 22.16M6 22C4.89 22 4 21.1 4
+                                     20V4C4 2.89 4.89 2 6 2H7V9L9.5 7.5L12 9V2H18C19.1 2 20 2.89 20 4V13.34C19.37 13.12 18.7 
+                                     13 18 13C14.69 13 12 15.69 12 19C12 20.09 12.29 21.12 12.8 22H6Z" />
+                                    </svg>`
+    }
+    
     readToggleBtn.addEventListener("click", toggleReadStatus);
     e.appendChild(readToggleBtn);
 };
@@ -97,19 +113,23 @@ const addReadBtn = (e, b) => {
 function toggleReadStatus() {
     console.log(myLibrary[this.getAttribute("id")]);
     if(myLibrary[this.getAttribute("id")].read === "read") {
-        myLibrary[this.getAttribute("id")].read = "not read";
+        myLibrary[this.getAttribute("id")].read = "not-read";
     }
     else {
         myLibrary[this.getAttribute("id")].read = "read";
     }
     console.log(myLibrary[this.getAttribute("id")]);
+    showLibrary();
 }
 
 const addDltBtn = (e, b) => {
     const deleteBookBtn = document.createElement("button");
     deleteBookBtn.setAttribute("class", "deleteBookBtn");
     deleteBookBtn.setAttribute("id", myLibrary.indexOf(b));
-    deleteBookBtn.innerHTML = bin;
+    deleteBookBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <title>delete</title>
+                                <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+                                </svg>`;
     deleteBookBtn.addEventListener("click", removeBook);
     e.appendChild(deleteBookBtn);
 };
@@ -122,7 +142,7 @@ function removeBook() {
 const fillBtnRow = (e, b) => {
     addReadBtn(e, b);
     addDltBtn(e, b);
-}
+};
 
 const addBtnRow = (e, b) => {
     const btnRow = document.createElement("div");
@@ -138,26 +158,29 @@ const fillCard = (e, b) => {
     addBtnRow(e, b);
 };
 
-const addCard = (b) => {
+const addCard = (e, b) => {
     const newCard = document.createElement("div");
     newCard.setAttribute("class", "card");
     fillCard(newCard, b);
-    main.insertBefore(newCard, openDialogBtn);
+    e.insertBefore(newCard, openDialogBtn);
 };
 
 const showLibrary = () => {
+    const main = document.querySelector("main");
+    refreshLibrary(main);
     for(const book of myLibrary) {
-        addCard(book);
+        addCard(main, book);
     }
 };
 
-const refreshLibrary = () => {
-    while (main.children.length > 1) {
-        main.removeChild(main.firstChild);
+const refreshLibrary = (e) => {
+    while (e.children.length > 1) {
+        e.removeChild(e.firstChild);
     }
 };
 
 const openDialog = () => {
+    const form = document.querySelector("form");
     form.reset();
     dialog.showModal();
 };
@@ -169,9 +192,8 @@ const closeDialog = (event) => {
 
 const addBook = (event) => {
     event.preventDefault();
-    
+
     addBookToLibrary();
-    refreshLibrary();
     showLibrary();
     
     dialog.close();
