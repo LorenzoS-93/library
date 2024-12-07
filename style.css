@@ -16,7 +16,7 @@ body {
 
 .container {
   display: grid;
-  grid-template-columns: 1fr 5fr;
+  grid-template-columns: 1fr 3fr;
   gap: 8px;
 }
 
@@ -139,7 +139,8 @@ main table {
   width: auto;
 }
 
-.form-row button {
+.form-row button,
+td button {
   font-size: 16px;
   font-weight: bold;
 
@@ -154,11 +155,13 @@ main table {
   cursor: pointer;
 }
 
-.form-row button:hover {
+.form-row button:hover,
+td button:hover {
   background-color: #76AEED;
 }
 
-.form-row button:active {
+.form-row button:active,
+td button:active {
   background-color: #407FC7;
 }
 
@@ -170,10 +173,44 @@ main {
 }
 
 table {
-    border-collapse: collapse;
+  border-collapse: collapse;
+  width: 100%;
 }
 
 tr {
   border-bottom: 1px solid black;
+}
 
+th,
+td {
+  min-width: 200px;
+}
+
+th {
+  padding: 24px 48px;
+}
+
+td {
+  padding: 24px 8px;
+  text-align: start;
+}
+
+.pages {
+  text-align: end;
+}
+
+td button {
+  margin-left: 0;
+}
+
+td .delete {
+  background-color: #D55C5F;
+}
+
+td .delete:hover {
+  background-color: #e96466;
+}
+
+td .delete:active {
+  background-color: #b45051;
 }
