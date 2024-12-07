@@ -1,169 +1,91 @@
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 html,
 body {
-  background-color: rgb(17, 24, 39);
+  color: #5D6063;
+  background-color: #a8aaad;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 16px;
-  margin: 0;
-  padding: 0;
+  line-height: 1.3;
+  padding: 8px;
 }
 
 .container {
-  margin: 16px;
-  display: flex;
-  gap: 16px;
-  height: 100vh;
-}
-
-.sidebar {
-  background-color: rgb(31, 41, 55);
-  color: white;
-  padding: 24px 24px 24px 0;
-  border-radius: 8px;
-  border: none;
-  display: flex;
-  flex-direction: column;
-  flex: 14%;
-}
-
-.sidebar .logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-left: 24px;
-  margin-bottom: 8px;
-}
-
-.logo svg {
-  fill: white;
-  height: 48px;
-  width: 48px;
-}
-
-.sidebar hr {
-  margin: 24px;
-  width: 85%;
-}
-
-.sidebar .sidebar-link {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.link {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 24px 12px 24px;
-  border-radius: 0 16px 16px 0;
-}
-
-.link:hover {
-  background-color: rgb(45, 59, 80);
-}
-
-.link a {
-  text-decoration: none;
-  color: white;
-}
-
-.link svg {
-  fill: white;
-  height: 32px;
-  width: 32px;
-} 
-
-.logo h1 {
-  margin: 0;
-  font-size: 28px;
-}
-
-main {
-  background-color: rgb(31, 41, 55);
   display: grid;
-  grid-template-columns: repeat(auto-fit, 300px);
-  gap: 15px;
-  padding: 24px;
-  border-radius: 8px;
-  border: none;
-  flex: 86%;
-}
-
-main .card {
-  max-height: 250px;
-  background-color: white;
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: 2fr 2fr 1fr;
-  border-radius: 8px;
-  padding: 16px;
-  color: #5D6063;
+  grid-template-columns: 1fr 5fr;
   gap: 8px;
 }
 
-.card .summary {
-  grid-column: 1/3;
-  margin: 0;
-}
-
-main #open-dialog {
-  height: 250px;
-  background-color: white;
+.sidebar {
+  background-color: #EAEDF0;
+  border-radius: 3px;
+  
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  border-radius: 8px;
-  padding: 16px;
+
+  padding: 0 20px;
 }
 
-#open-dialog svg {
-  width: 150px;
-  height: 150px;
-}
-
-main #open-dialog:hover {
-  transform: scale(1.1);
-  svg {
-    fill: rgb(29, 28, 28);
-  }
-}
-
-dialog {
-  padding: 32px;
-  border: none !important;
-  /* !important used here to override polyfill CSS, if loaded */
-  border-radius: 8px;
+.logo,
+.sidebar .book-form-header,
+main table {
+  text-align: center;
   background-color: #F6F7F8;
-  color: #5D6063;
+  border: 1px solid #D6D9DC;
+  border-radius: 3px;
+  
+  width: 500px;
+  margin: 20px 0;
+  padding: 50px;
 }
 
-dialog::backdrop {
-  background: rgb(31, 41, 55, 75%);
+.logo {
+  grid-column: 1/3;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin: 0;
+  width: 100%;
+}
+
+.logo svg {
+  fill: #5D6063;
+  width: 48px;
+  height: 48px;
+}
+
+.logo h1 {
+  font-size: 48px;
+}
+
+.book-form-header h2 {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.sidebar .book-form {
+  background-color: #F6F7F8;
+  border: 1px solid #D6D9DC;
+  border-radius: 3px;
+  
+  width: 500px;
+  padding: 50px;
+  margin: 0 0 20px 0;
 }
 
 .form-row {
   margin-bottom: 20px;
+
   display: flex;
   justify-content: flex-start;
-}
-
-.form-row-button {
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-}
-
-.form-row label {
-  text-align: right;
-  width: 120px;
-  margin-top: 7px;
-  padding-right: 20px;
+  align-items: flex-start; /* To avoid stretching */
+  flex-wrap: wrap;
 }
 
 .form-row input[type='text'],
@@ -178,8 +100,22 @@ dialog::backdrop {
   font-size: 14px;
 }
 
+.form-row input[type='text']:invalid,
+.form-row input[type='number']:invalid {
+  border: 1px solid #D55C5F;
+  color: #D55C5F;
+  box-shadow: none; /* Remove default red glow in Firefox */
+}
+
+.form-row label {
+  margin-bottom: 15px;
+  text-align: right;
+  width: 120px;
+  margin-top: 7px;
+  padding-right: 20px;
+}
+
 .form-row textarea {
-  font-family: "Helvetica", "Arial", sans-serif;
   font-size: 14px;
 
   border: 1px solid #D6D9DC;
@@ -191,61 +127,53 @@ dialog::backdrop {
   resize: none;
 }
 
+.form-row .instructions {
+  color: #999999;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
 .form-row .checkbox-label {
   margin-bottom: 0;
   margin-left: 120px;
   width: auto;
 }
 
-.form-row-button button {
+.form-row button {
   font-size: 16px;
   font-weight: bold;
-  width: 120px;
 
+  color: #FFFFFF;
+  background-color: #5995DA;
+
+  border: none;
   border-radius: 3px;
 
   padding: 10px 40px;
+  margin-left: 120px;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
 }
 
-.form-row-button #add-book {
-  background-color: #5995DA;
-
-  color: #FFFFFF;
-
-  border: none;
-}
-
-.form-row-button #add-book:hover {
+.form-row button:hover {
   background-color: #76AEED;
 }
 
-.form-row-button #add-book:active {
+.form-row button:active {
   background-color: #407FC7;
 }
 
-.btnRow {
-  grid-column: 1/3;
-  display: flex;
-  align-items: center;
-  justify-content: end;
-  gap: 12px;
+main {
+  background-color: #EAEDF0;
+  border-radius: 3px;
+
+  padding: 0 20px;
 }
 
-.deleteBookBtn {
-  border: none;
-  border-radius: 50%;
-  height: 32px;
-  width: 32px;
-  background-color: rgb(194, 190, 190);
+table {
+    border-collapse: collapse;
 }
 
-.readToggleBtn {
-  border: none;
-  border-radius: 50%;
-  height: 32px;
-  width: 32px;
-  background-color: rgb(194, 190, 190);
+tr {
+  border-bottom: 1px solid black;
+
 }
